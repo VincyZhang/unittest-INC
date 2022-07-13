@@ -15,6 +15,18 @@ steps:
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
-    echo "sleep 5s"
-    sleep 5
+    echo $(myVariableY)
   displayName: 'Run a multi-line script'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      echo 'Hello world'
+      echo $(myVariableX)
+- task: PythonScript@0
+  inputs:
+    scriptSource: 'inline'
+    script: 'print("hello")'
+
+
