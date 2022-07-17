@@ -16,13 +16,6 @@ variables:
   IMAGE_TAG: '1.12'
   
 steps:
-- task: Docker@2
-  displayName: Build Container
-  inputs:
-    command: build
-    repository: ${IMAGE_NAME} # username/contosoRepository for DockerHub
-    tags: ${IMAGE_TAG}
-    arguments: PYTHON=${PYTHON},INC_VER=${INC_VER}
-    Dockerfile: docker/Dockerfile
-
+- script: docker build --build-arg PYTHON=${PYTHON} --build-arg INC_VER=${INC_VER} -f docker/Dockerfile -t ${IMAGE_NAME}:${IMAGE_TAG} .
+  displayName: 'Build Container'
 
