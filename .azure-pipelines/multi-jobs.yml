@@ -1,22 +1,33 @@
 pr: 
 - main
-jobs: 
-- job: jobA
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - bash: echo "Hello world 001"
-    displayName: "Hello world 001"
-  - script: echo "Hello world 002"
-    displayName: "Hello world 002"
-- job: jobB
-  timeoutInMinutes: 10
-  pool:
-   vmImage: 'macOS-latest'
-  steps:
-    - script: echo "for macOS test"
-      displayName: "macOS test 1"
-    - script: echo "macOS test again"
-      displayName: "macOS test 2"
-  
-  
+
+stages: 
+- stage: AA
+  jobs: 
+  - job: jobA1
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - bash: echo "Hello world 001"
+      displayName: "Hello world 001"
+    - script: echo "Hello world 002"
+      displayName: "Hello world 002"
+  - job: jobA2
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'macOS-latest'
+    steps:
+      - script: echo "for macOS test"
+        displayName: "macOS test 1"
+      - script: echo "macOS test again"
+        displayName: "macOS test 2"
+- stage: BB  
+  jobs: 
+  - job: jobB1
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - bash: echo "stage BB job B1 step1...xxx..."
+      displayName: "stage BB job B1 step1"
+    - script: echo "stage BB job B1 step2...xxx..."
+      displayName: "stage BB job B1 step2"
