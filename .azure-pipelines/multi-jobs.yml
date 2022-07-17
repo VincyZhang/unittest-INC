@@ -1,4 +1,11 @@
+pr: 
+- main
+
 pool:
   vmImage: 'ubuntu-latest'
 steps:
-- bash: echo "Hello world"
+- bash: echo "Hello world 001"
+  displayName: "Hello world 001"
+- script: echo "Hello world 002"
+  displayName: "Hello world 002"
+
