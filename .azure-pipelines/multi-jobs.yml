@@ -12,7 +12,7 @@ jobs:
 - job: jobB
   timeoutInMinutes: 10
   pool:
-   vmImage:macOS-latest
+   vmImage: 'macOS-latest'
   steps:
     - script: echo "for macOS test"
       displayName: "macOS test 1"
