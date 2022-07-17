@@ -3,30 +3,26 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-pr:
+trigger:
 - main
 
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  PYTHON: 'python3.8'
+  INC_VER: '1.12'
+  IMAGE_NAME: 'neural-compressor'
+  IMAGE_TAG: '1.12'
+  
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo $(myVariableY)
-  displayName: 'Run a multi-line script'
-- task: Bash@3
+- task: Docker@2
+  displayName: Build Container
   inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      echo 'Hello world'
-      echo $(myVariableX)
-- task: PythonScript@0
-  inputs:
-    scriptSource: 'inline'
-    script: 'print("hello")'
+    command: build
+    repository: ${IMAGE_NAME} # username/contosoRepository for DockerHub
+    tags: ${IMAGE_TAG}
+    arguments: PYTHON=${PYTHON},INC_VER=${INC_VER}
+    Dockerfile: docker/Dockerfile
 
 
