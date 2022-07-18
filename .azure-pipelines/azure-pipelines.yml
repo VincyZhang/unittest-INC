@@ -22,3 +22,12 @@ steps:
 - script: docker images | grep -i neural-compressor
   displayName: 'Check Container build'
 
+- task: Docker@2
+  displayName: Push image
+  inputs:
+    containerRegistry: |
+      'https://amr-registry.caas.intel.com'
+    repository: $(IMAGE_NAME)
+    command: push
+    tags: |
+      $(IMAGE_TAG)
