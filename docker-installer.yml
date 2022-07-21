@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+variables:
+  PYTHON: 'python3.8'
+  INC_VER: '1.12'
+  IMAGE_NAME: 'neural-compressor'
+  IMAGE_TAG: '1.12'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      docker-agent
+    steps:
+    - script: docker build --build-arg PYTHON=${PYTHON} --build-arg INC_VER=${INC_VER} -f docker/Dockerfile -t ${IMAGE_NAME}:${IMAGE_TAG} .
+      displayName: 'Build Container'
