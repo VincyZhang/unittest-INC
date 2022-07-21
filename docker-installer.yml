@@ -19,7 +19,13 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      docker-agent
+      vmImage: ubuntu-latest
     steps:
+    - task: Docker@2
+      displayName: Login to repo
+      inputs:
+        command: login
+        containerRegistry: inc-internal
+        
     - script: docker build --build-arg PYTHON=${PYTHON} --build-arg INC_VER=${INC_VER} -f docker/Dockerfile -t ${IMAGE_NAME}:${IMAGE_TAG} .
       displayName: 'Build Container'
