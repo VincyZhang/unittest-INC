@@ -39,4 +39,4 @@ stages:
         containerRegistry: inc-internal
         repository: neural-compressor/test-inc
         command: push
-        tags: ${IMAGE_TAG}
+        tags: v1.12
