@@ -29,3 +29,9 @@ stages:
         
     - script: docker build --build-arg PYTHON=${PYTHON} --build-arg INC_VER=${INC_VER} -f docker/Dockerfile -t ${IMAGE_NAME}:${IMAGE_TAG} .
       displayName: 'Build Container'
+    
+    - script: docker tag ${IMAGE_NAME}:${IMAGE_TAG} amr-registry-pre.caas.intel.com/neural-compressor/test-inc:${IMAGE_TAG}
+      displayName: 'Tag Container'
+      
+    - script: docker push amr-registry-pre.caas.intel.com/neural-compressor/test-inc:${IMAGE_TAG}
+      displayName: 'Push Container'
