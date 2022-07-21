@@ -33,5 +33,10 @@ stages:
     - script: docker tag ${IMAGE_NAME}:${IMAGE_TAG} amr-registry-pre.caas.intel.com/neural-compressor/test-inc:${IMAGE_TAG}
       displayName: 'Tag Container'
       
-    - script: docker push amr-registry-pre.caas.intel.com/neural-compressor/test-inc:${IMAGE_TAG}
-      displayName: 'Push Container'
+    - task: Docker@2
+      displayName: Push image
+      inputs:
+        containerRegistry: inc-internal
+        repository: neural-compressor/test-inc
+        command: push
+        tags: ${IMAGE_TAG}
