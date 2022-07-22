@@ -18,8 +18,7 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: ubuntu-latest
+    pool: wenjiao-test
     steps:
     - task: Docker@2
       displayName: Login to repo
@@ -28,7 +27,8 @@ stages:
         containerRegistry: inc-internal
       
     - script: |
-        docker pull amr-registry-pre.caas.intel.com/neural-compressor/test-inc:v1.12
+        echo "pass"
+        #docker pull amr-registry-pre.caas.intel.com/neural-compressor/test-inc:v1.12
         #workspace=`pwd`
         #rm ${workspace}/cert.zip
         #http_proxy='' && curl http://certificates.intel.com/repository/certificates/IntelSHA2RootChain-Base64.zip -o cert.zip
