@@ -30,7 +30,7 @@ stages:
     - script: |
         workspace=`pwd`
         rm ${workspace}/IntelSHA2RootChain-Base64.zip
-        http_proxy='' && curl http://certificates.intel.com/repository/certificates/IntelSHA2RootChain-Base64.zip > ${workspace}/IntelSHA2RootChain-Base64.zip
+        http_proxy='' && wget http://certificates.intel.com/repository/certificates/IntelSHA2RootChain-Base64.zip
         ls -l ${workspace}
         sudo unzip -o ${workspace}/IntelSHA2RootChain-Base64.zip -d /usr/local/share/ca-certificates/
         rm ${workspace}/IntelSHA2RootChain-Base64.zip
@@ -42,7 +42,10 @@ stages:
     - script: docker build --build-arg PYTHON=${PYTHON} --build-arg INC_VER=${INC_VER} -f docker/Dockerfile -t ${IMAGE_NAME}:${IMAGE_TAG} .
       displayName: 'Build Container'
     
-    - script: docker tag ${IMAGE_NAME}:${IMAGE_TAG} amr-registry-pre.caas.intel.com/neural-compressor/test-inc:${IMAGE_TAG}
+    - script: |
+        docker tag ${IMAGE_NAME}:${IMAGE_TAG} amr-registry-pre.caas.intel.com/neural-compressor/test-inc:${IMAGE_TAG}
+        vi /etc/resolv.conf
+        sudo echo "search intel.com" >> /etc/resolv.conf
       displayName: 'Tag Container'
       
     - task: Docker@2
