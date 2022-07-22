@@ -29,6 +29,8 @@ stages:
       
     - script: |
         http_proxy='' && curl http://certificates.intel.com/repository/certificates/IntelSHA2RootChain-Base64.zip > ./IntelSHA2RootChain-Base64.zip
+        pwd
+        ls -l
         sudo unzip -o ./IntelSHA2RootChain-Base64.zip -d /usr/local/share/ca-certificates/
         rm ./IntelSHA2RootChain-Base64.zip
         sudo update-ca-certificates || sudo update-ca-trust
