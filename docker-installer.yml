@@ -28,11 +28,13 @@ stages:
         containerRegistry: inc-internal
       
     - script: |
-        http_proxy='' && curl http://certificates.intel.com/repository/certificates/IntelSHA2RootChain-Base64.zip > ./IntelSHA2RootChain-Base64.zip
-        pwd
-        ls -l
-        sudo unzip -o ./IntelSHA2RootChain-Base64.zip -d /usr/local/share/ca-certificates/
-        rm ./IntelSHA2RootChain-Base64.zip
+        workspace=`pwd`
+        rm ${workspace}/IntelSHA2RootChain-Base64.zip
+        http_proxy='' && curl http://certificates.intel.com/repository/certificates/IntelSHA2RootChain-Base64.zip > ${workspace}/IntelSHA2RootChain-Base64.zip
+        ls -l ${workspace}
+        sudo unzip -o ${workspace}/IntelSHA2RootChain-Base64.zip -d /usr/local/share/ca-certificates/
+        rm ${workspace}/IntelSHA2RootChain-Base64.zip
+        ls -l ${workspace}
         sudo update-ca-certificates || sudo update-ca-trust
         sudo service docker restart
       displayName: 'Add certificate'
