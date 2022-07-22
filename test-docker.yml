@@ -46,7 +46,6 @@ stages:
     
     - script: |
         docker tag ${IMAGE_NAME}:${IMAGE_TAG} amr-registry-pre.caas.intel.com/neural-compressor/test-inc:${IMAGE_TAG}
-        vi /etc/resolv.conf
       displayName: 'Tag Container'
       
     - task: Docker@2
