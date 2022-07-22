@@ -28,15 +28,16 @@ stages:
         containerRegistry: inc-internal
       
     - script: |
-        workspace=`pwd`
-        rm ${workspace}/cert.zip
-        http_proxy='' && curl http://certificates.intel.com/repository/certificates/IntelSHA2RootChain-Base64.zip -o cert.zip
-        ls -l ${workspace}
-        sudo unzip -o ${workspace}/cert.zip -d /usr/local/share/ca-certificates/
-        rm ${workspace}/cert.zip
-        ls -l ${workspace}
-        sudo update-ca-certificates || sudo update-ca-trust
-        sudo service docker restart
+        docker pull amr-registry-pre.caas.intel.com/neural-compressor/test-inc:v1.12
+        #workspace=`pwd`
+        #rm ${workspace}/cert.zip
+        #http_proxy='' && curl http://certificates.intel.com/repository/certificates/IntelSHA2RootChain-Base64.zip -o cert.zip
+        #ls -l ${workspace}
+        #sudo unzip -o ${workspace}/cert.zip -d /usr/local/share/ca-certificates/
+        #rm ${workspace}/cert.zip
+        #ls -l ${workspace}
+        #sudo update-ca-certificates || sudo update-ca-trust
+        #sudo service docker restart
       displayName: 'Add certificate'
         
     - script: docker build --build-arg PYTHON=${PYTHON} --build-arg INC_VER=${INC_VER} -f docker/Dockerfile -t ${IMAGE_NAME}:${IMAGE_TAG} .
@@ -45,7 +46,6 @@ stages:
     - script: |
         docker tag ${IMAGE_NAME}:${IMAGE_TAG} amr-registry-pre.caas.intel.com/neural-compressor/test-inc:${IMAGE_TAG}
         vi /etc/resolv.conf
-        echo "search intel.com" >> /etc/resolv.conf || true
       displayName: 'Tag Container'
       
     - task: Docker@2
