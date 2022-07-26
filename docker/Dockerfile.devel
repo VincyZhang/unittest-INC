@@ -46,7 +46,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends --fix-missing \
     libgl1-mesa-glx \
     libglib2.0-0
 
-ARG INC_BRANCH=v1.12
+ARG INC_BRANCH=master
 RUN git clone --single-branch --branch=${INC_BRANCH} https://github.com/intel/neural-compressor.git && \
     cd neural-compressor && \
     git submodule sync && \
