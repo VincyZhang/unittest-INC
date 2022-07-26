@@ -19,7 +19,8 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool: wenjiao-test
+    pool: 
+      vmImageName: 'ubuntu-latest'
     steps:
     - task: Docker@2
       displayName: Login to repo
