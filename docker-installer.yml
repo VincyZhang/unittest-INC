@@ -48,5 +48,13 @@ stages:
     
     - script: |
         docker tag ${IMAGE_NAME}:${IMAGE_TAG} amr-registry-pre.caas.intel.com/neural-compressor/test-inc:${IMAGE_TAG}
-        vi /etc/resolv.conf
       displayName: 'Tag Container'
+
+    - script: |
+        docker images | grep -i neural-compressor
+      displayName: 'Check docker'
+
+    - script: |
+        docker docker run --init --name=test-inc -d -u root:root ${IMAGE_NAME}:${IMAGE_TAG} tail -f /dev/null
+        docker exec test-inc  python test/test.py
+      displayName: 'Run python sciprt'
