@@ -12,6 +12,7 @@ variables:
   IMAGE_NAME: 'neural-compressor'
   IMAGE_TAG: '1.12'
 
+
 stages:
 - stage: Build
   displayName: Build and push stage
@@ -45,13 +46,8 @@ stages:
     
     - script: |
         docker tag ${IMAGE_NAME}:${IMAGE_TAG} amr-registry-pre.caas.intel.com/neural-compressor/test-inc:${IMAGE_TAG}
-        vi /etc/resolv.conf
       displayName: 'Tag Container'
       
-    - task: Docker@2
-      displayName: Push image
-      inputs:
-        containerRegistry: inc-internal
-        repository: neural-compressor/test-inc
-        command: push
-        tags: v1.12
+    - script:
+        docker images | grep neural-compressor
+      displayName: check image
