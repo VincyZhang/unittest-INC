@@ -43,7 +43,7 @@ stages:
         #sudo service docker restart
       displayName: 'Add certificate'
         
-    - script: docker build --build-arg PYTHON=${PYTHON} --build-arg INC_BRANCH=${INC_BRANCH} -f Dockerfile.devel -t ${IMAGE_NAME}:${IMAGE_TAG} .
+    - script: docker build --build-arg PYTHON=${PYTHON} --build-arg INC_BRANCH=${INC_BRANCH} -f docker/Dockerfile.devel -t ${IMAGE_NAME}:${IMAGE_TAG} .
       displayName: 'Build Container'
     
     - script: |
