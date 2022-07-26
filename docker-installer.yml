@@ -55,6 +55,6 @@ stages:
       displayName: 'Check docker'
 
     - script: |
-        docker docker run --init --name=test-inc -d -u root:root ${IMAGE_NAME}:${IMAGE_TAG} tail -f /dev/null
+        docker run --init --name=test-inc -d -u root:root ${IMAGE_NAME}:${IMAGE_TAG} tail -f /dev/null
         docker exec test-inc  python test/test.py
       displayName: 'Run python sciprt'
