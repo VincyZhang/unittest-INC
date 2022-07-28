@@ -30,8 +30,8 @@ RUN ${PYTHON} -m pip --no-cache-dir install --upgrade \
     pip \
     setuptools
 
-RUN ln -sf $(which ${PYTHON}) /usr/bin/python && \
-    ln -sf $(which ${PYTHON}) /usr/bin/python3
+#RUN ln -sf $(which ${PYTHON}) /usr/bin/python && \
+#    ln -sf $(which ${PYTHON}) /usr/bin/python3
 #    ln -sf $(which ${PYTHON}) /usr/local/bin/python3 && \
 #    ln -sf $(which ${PYTHON}) /usr/local/bin/python
     
