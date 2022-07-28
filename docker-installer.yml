@@ -55,7 +55,8 @@ stages:
       displayName: 'Check docker'
 
     - script: |
-        docker run --init --name=test-inc -d -u root:root ${IMAGE_NAME}:${IMAGE_TAG} tail -f /dev/null
-        docker exec test-inc pwd && ls -l test && pip list
-        docker exec test-inc  python -c "import neural_compressor"
+        Workspace=`pwd`
+        docker run --init --name=test-inc -d -u root:root -w ${Workspace} ${IMAGE_NAME}:${IMAGE_TAG} tail -f /dev/null
+        docker exec test-inc pwd && ls -l test && pip list && python test/test.py
+        docker exec test-inc  python -c "import neural_compressor as nc;print(nc.version.__version__)"
       displayName: 'Run python sciprt'
